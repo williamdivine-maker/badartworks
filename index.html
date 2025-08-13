@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bad Artworks Collective</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: #fff;
+            padding: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #007acc;
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+        }
+
+        .hero {
+            padding: 60px 0;
+            text-align: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .hero-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5em;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .hero .tagline {
+            font-size: 1.3em;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .content-section {
+            padding: 60px 0;
+        }
+
+        .content-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #333;
+        }
+
+        .content-section p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .feature {
+            padding: 30px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .feature h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .feature p {
+            font-size: 1em;
+            line-height: 1.6;
+        }
+
+        /* Blog Section */
+        .blog-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .blog-post {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .blog-post:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-post-image {
+            width: 100%;
+            height: 200px;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .blog-post-content {
+            padding: 20px;
+        }
+
+        .blog-post h3 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .blog-post p {
+            font-size: 0.95em;
+            color: #666;
+            margin-bottom: 0;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 50px;
+            align-items: start;
+            margin-top: 40px;
+        }
+
+        .founder-image {
+            width: 100%;
+            height: 400px;
+            background: #ddd;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .founder-info h3 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .founder-info h4 {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 80px;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2em;
+            }
+
+            .hero .subtitle {
+                font-size: 1.2em;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .founder-image {
+                height: 300px;
+            }
+        }
+
+        /* Page-specific styles */
+        .page-content {
+            padding: 40px 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Modal styles for blog posts */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+        }
+
+        .modal-content {
+            background: #fff;
+            margin: 50px auto;
+            padding: 40px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 30px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .modal-close:hover {
+            color: #000;
+        }
+
+        .modal h1 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 2em;
+        }
+
+        .modal .author-info {
+            color: #666;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .modal p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .modal h3 {
+            margin: 30px 0 15px 0;
+            color: #333;
+            font-size: 1.3em;
+        }
+
+        .blog-post {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="#" class="logo" onclick="showPage('home')">Bad Artworks</a>
+            <ul class="nav-links">
+                <li><a href="#" class="nav-link active" onclick="showPage('home')">Home</a></li>
+                <li><a href="#" class="nav-link" onclick="showPage('about')">About</a></li>
+                <li><a href="#" class="nav-link" onclick="showPage('blog')">Blog</a></li>
+                <li><a href="#" class="nav-link" onclick="showPage('events')">Events</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- HOME PAGE -->
+        <div id="home" class="page">
+            <section class="hero">
+                <div class="container">
+                    <div class="hero-image">Logo Image</div>
+                    <h1>Bad Artworks</h1>
+                    <p class="subtitle">Collective</p>
+                    <p class="tagline">Creativity doesn't require chaos.</p>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <div class="container">
+                    <p>We're the antidote to the tired myth that great art comes only from great suffering. At Bad Artworks, we're proving that recovery isn't just compatible with creativity—it's rocket fuel for it. We're a collective of artists, writers, musicians, and creators who've traded substances for substance, chaos for clarity, and self-destruction for self-expression.</p>
+                    
+                    <p>We believe that if you're human, you're recovering from something, but this isn't your grandparent's recovery program. We're building something radically different: spaces where being sober is the coolest thing in the room, where vulnerability is currency, and where art gets sharper, not safer, in recovery.</p>
+                </div>
+            </section>
+
+            <section class="content-section" style="background: #f9f9f9;">
+                <div class="container">
+                    <h2>What We're About</h2>
+                    <div class="features">
+                        <div class="feature">
+                            <h3>Raw Creative Energy</h3>
+                            <p>Underground meetups, late-night workshops, and collaborative sessions where inspiration hits different</p>
+                        </div>
+                        <div class="feature">
+                            <h3>Real Community</h3>
+                            <p>No fake positivity, no toxic productivity culture. Just honest creatives who get what it means to rebuild your relationship with your art</p>
+                        </div>
+                        <div class="feature">
+                            <h3>Substance-Free Spaces That Actually Slap</h3>
+                            <p>Gallery nights, open mics, installations, and parties where being present is the only high you need</p>
+                        </div>
+                        <div class="feature">
+                            <h3>Resources That Don't Suck</h3>
+                            <p>Curated mental health resources, recovery tools, and creative opportunities that respect your intelligence</p>
+                        </div>
+                        <div class="feature">
+                            <h3>Skills Exchange</h3>
+                            <p>Learn, teach, grow. Master new mediums while staying true to your authentic voice</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ABOUT PAGE -->
+        <div id="about" class="page hidden">
+            <section class="page-content">
+                <div class="container">
+                    <h1 style="text-align: center; margin-bottom: 40px; font-size: 2.5em;">Your Story Is Your Superpower</h1>
+                    
+                    <p style="font-size: 1.2em; text-align: center; margin-bottom: 40px;">Recovery isn't one-size-fits-all, and neither is creativity. Maybe you're rediscovering what your art sounds like without the noise. Maybe you're using creativity to rewire your brain. Maybe you're just tired of feeling like the only sober person in every creative space.</p>
+                    
+                    <p style="font-size: 1.2em; text-align: center; margin-bottom: 40px;"><strong>Whatever brought you here, you belong here.</strong></p>
+                    
+                    <p style="font-size: 1.2em; text-align: center; margin-bottom: 40px;">Your art is valid. Your recovery is radical. Your story rewrites the rules.</p>
+                    
+                    <p style="font-size: 1.2em; text-align: center; margin-bottom: 60px;"><strong>Ready to create something undeniably authentic? Let's make art that matters—clear-eyed, uncompromising, and completely yours.</strong></p>
+
+                    <div class="about-content">
+                        <div class="founder-text">
+                            <h3>Founder & Artist</h3>
+                            <h4>William Jamhoury</h4>
+                            
+                            <p>I'm a creative who chose to step away from conventional definitions of success—trading the pursuit of material wealth for a deeper journey of self-discovery and spiritual growth. Initially, I was hesitant to abandon my familiar lifestyle, fearing isolation and the loss of my social connections. But I discovered something unexpected: a vibrant community of like-minded individuals who offered relationships of profound depth and authenticity.</p>
+                            
+                            <p>Through this spiritual awakening, I embraced a new artistic identity as "Will Divine"—a name that reflects the dance of human will and divine consciousness that guided me toward my transformed way of living. This transformative experience inspired me to create sanctuaries for others—edgy spaces where people curious about intentional living can explore clean lifestyles, and where anyone seeking authentic self-expression can find acceptance and encouragement.</p>
+                            
+                            <p>Through my work, I bridge the gap between artistic expression and conscious living, fostering environments where creativity and personal growth flourish together.</p>
+                        </div>
+                        <div class="founder-image">Founder Photo</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- BLOG PAGE -->
+        <div id="blog" class="page hidden">
+            <section class="page-content">
+                <div class="container">
+                    <h1 style="text-align: center; margin-bottom: 40px; font-size: 2.5em;">Blog</h1>
+                    
+                    <div class="blog-posts">
+                        <article class="blog-post" onclick="openModal('post1')">
+                            <div class="blog-post-image">Blog Image</div>
+                            <div class="blog-post-content">
+                                <h3>The Origin Story: Why Bad Artworks?</h3>
+                                <p>A name born from reclaiming power, not shame. There's something beautifully rebellious about choosing a name that seems to insult your own...</p>
+                            </div>
+                        </article>
+                        
+                        <article class="blog-post" onclick="openModal('post2')">
+                            <div class="blog-post-image">Blog Image</div>
+                            <div class="blog-post-content">
+                                <h3>When Art Becomes Your Sanctuary (And Why We Keep It Substance-Free)</h3>
+                                <p>There's something profoundly radical about choosing sobriety in a world that constantly tells artists we need to be tortured...</p>
+                            </div>
+                        </article>
+                        
+                        <article class="blog-post" onclick="openModal('post3')">
+                            <div class="blog-post-image">Blog Image</div>
+                            <div class="blog-post-content">
+                                <h3>Connection Is the Antidote (And Why We're Done Pretending It's Not)</h3>
+                                <p>Here's the truth nobody wants to say out loud: we're living through a loneliness epidemic, and it's killing our creativity. We're more...</p>
+                            </div>
+                        </article>
+                        
+                        <article class="blog-post" onclick="openModal('post4')">
+                            <div class="blog-post-image">Blog Image</div>
+                            <div class="blog-post-content">
+                                <h3>The Creative Clarity Nobody Talks About (And Why It Changes Everything)</h3>
+                                <p>Here's the uncomfortable truth about creativity that most people would rather ignore: we've been lied to about what it takes to make...</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- EVENTS PAGE -->
+        <div id="events" class="page hidden">
+            <section class="page-content">
+                <div class="container">
+                    <h1 style="text-align: center; margin-bottom: 40px; font-size: 2.5em;">Events</h1>
+                    
+                    <div style="text-align: center; margin-bottom: 40px;">
+                        <p style="font-size: 1.2em;">Coming soon! We're planning substance-free creative events, workshops, and community gatherings.</p>
+                        <p style="margin-top: 20px;">Check back here for updates on our upcoming events, or follow us on social media to stay connected.</p>
+                    </div>
+
+                    <div class="features">
+                        <div class="feature">
+                            <h3>Creative Workshops</h3>
+                            <p>Hands-on sessions exploring different artistic mediums in a supportive, substance-free environment</p>
+                        </div>
+                        <div class="feature">
+                            <h3>Community Meetups</h3>
+                            <p>Regular gatherings for artists in recovery to connect, share, and collaborate on projects</p>
+                        </div>
+                        <div class="feature">
+                            <h3>Gallery Nights</h3>
+                            <p>Showcasing work from our community members in spaces that celebrate clear-minded creativity</p>
+                        </div>
+                        <div class="feature">
+                            <h3>Open Mic Nights</h3>
+                            <p>Share your poetry, music, or spoken word in a welcoming space where authenticity is valued</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Bad Artworks Collective. All rights reserved.</p>
+            <p>Building spaces where creativity and recovery flourish together.</p>
+        </div>
+    </footer>
+
+    <!-- Blog Post Modals -->
+    <div id="post1" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <h1>The Origin Story: Why Bad Artworks?</h1>
+            <div class="author-info">William Jamhoury - 4 min read</div>
+            
+            <h3>A name born from reclaiming power, not shame</h3>
+            <p>There's something beautifully rebellious about choosing a name that seems to insult your own work. When people first hear "Bad Artworks," they often do a double-take. Bad? Really? But that reaction is exactly the point—and it's rooted in a moment that changed everything about how I approach creativity and criticism.</p>
+
+            <h3>The Moment That Sparked Everything</h3>
+            <p>I was painting, completely absorbed in the process, feeling that familiar vulnerability that comes with creating something from nothing. Art has always been deeply personal for me—each brushstroke, each color choice, each creative decision feels like I'm exposing a piece of my soul. It's terrifying and exhilarating at the same time.</p>
+            <p>That's when someone I considered a friend delivered what she probably thought was a casual observation: "You and all your bad art."</p>
+            <p>The words hit like a physical blow. Here I was, in my most vulnerable creative state, and someone I trusted decided to weaponize that vulnerability against me. The sting wasn't just about the criticism—it was about the timing, the casualness, the way she dismissed something I poured my heart into.</p>
+            <p>But here's the thing about moments that initially wound us: sometimes they become the very foundation of our strength.</p>
+
+            <h3>Reclaiming the Narrative</h3>
+            <p>After the initial hurt subsided, something shifted. I realized that her opinion—harsh and uninvited as it was—said more about her than it did about my work. Art's quality and value isn't determined by random passersby offering unsolicited critiques. It's determined by the artist who creates it and the people who connect with it.</p>
+            <p>So I decided to take the wind out of her sails—and anyone else's who might think they could use "bad art" as an insult. I would call my collective "Bad Artworks" myself.</p>
+            <p>If someone wants to call my work "bad," they can get in line behind me. I got there first.</p>
+
+            <h3>The Deeper Truth Behind the Name</h3>
+            <p>What started as a defensive move evolved into something much more profound. "Bad Artworks" became a declaration of independence from the gatekeepers, the critics, and the arbitrary standards that often keep people from creating at all.</p>
+            <p>But it's also something else entirely: a counter-culture movement. In a world obsessed with perfection, polish, and palatability, choosing to call your work "bad" is a radical act of rebellion. It's contrary to everything we're taught about branding, marketing, and presenting ourselves to the world.</p>
+            <p>The name represents everything we stand for: the courage to create despite judgment, the radical idea that art doesn't have to be "good" by conventional standards to be meaningful, and the understanding that vulnerability isn't weakness—it's currency. It's a middle finger to the norm, wrapped in artistic expression.</p>
+            <p>At Bad Artworks, we've built something that challenges the tired myth that great art comes only from great suffering. We're proving that recovery isn't just compatible with creativity—it's rocket fuel for it. We're a collective of artists, writers, musicians, and creators who've traded substances for substance, chaos for clarity, and self-destruction for self-expression.</p>
+
+            <h3>Why "Bad" Is Actually Good</h3>
+            <p>The beauty of calling ourselves "Bad Artworks" is that it immediately filters out the people who aren't ready for what we're about. It attracts the rebels, the recovering, the raw, and the real. It creates space for those who understand that art doesn't have to be perfect to be powerful.</p>
+            <p>In a culture that demands Instagram-worthy perfection and marketable aesthetics, we chose the opposite path. We went full contrarian. While everyone else polishes their brand to shine, we deliberately chose a name that challenges expectations and forces people to look deeper.</p>
+            <p>Our "bad" art is honest art. It's vulnerable art. It's art that says, "I'm going to create anyway, regardless of what you think." And in a world that often demands perfection, that's not just radical—it's revolutionary.</p>
+
+            <h3>The Community It Created</h3>
+            <p>That moment of criticism, meant to diminish, instead became the catalyst for building something beautiful. Bad Artworks isn't just a name—it's a counter-culture movement that dares to go against the grain.</p>
+            <p>We've created substance-free spaces that actually slap, resources that don't suck, and a community where being human—messy, recovering, imperfect—is not just accepted but celebrated. This isn't your typical art collective trying to fit into established molds. We're breaking them entirely.</p>
+
+            <h3>The Last Word</h3>
+            <p>To the person who called my work "bad art": thank you. Your attempt to diminish became my rally cry. Your criticism became my community's foundation. Your words, meant to wound, became the very thing that would eventually heal not just me, but countless other artists who found their home in our "bad" art collective.</p>
+            <p>Sometimes the most powerful thing you can do is own the insult before anyone else can use it against you. Sometimes the most radical act is to create anyway, to share anyway, to be vulnerable anyway. And sometimes, the most counter-cultural thing you can do is embrace what others see as weakness.</p>
+            <p>At Bad Artworks, we believe that if you're human, you're recovering from something. And in that recovery, in that messy, imperfect, beautifully human process of healing and creating, we find art that's not just good—it's transformative.</p>
+            <p>Our art might be "bad" by someone's standards, but it's ours. And that makes it invaluable.</p>
+            <p><strong>Ready to join our community of beautiful misfits making "bad" art? Visit us at badartworks.org</strong></p>
+        </div>
+    </div>
+
+    <!-- Placeholder modals for other posts -->
+    <div id="post2" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <h1>When Art Becomes Your Sanctuary (And Why We Keep It Substance-Free)</h1>
+            <div class="author-info">William Jamhoury - 4 min read</div>
+            <p>There's something profoundly radical about choosing sobriety in a world that constantly tells artists we need to be tortured...</p>
+            <p><em>Full content to be added - copy from your original Wix blog post</em></p>
+        </div>
+    </div>
+
+    <div id="post3" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <h1>Connection Is the Antidote (And Why We're Done Pretending It's Not)</h1>
+            <div class="author-info">William Jamhoury - 4 min read</div>
+            <p>Here's the truth nobody wants to say out loud: we're living through a loneliness epidemic, and it's killing our creativity. We're more...</p>
+            <p><em>Full content to be added - copy from your original Wix blog post</em></p>
+        </div>
+    </div>
+
+    <div id="post4" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <h1>The Creative Clarity Nobody Talks About (And Why It Changes Everything)</h1>
+            <div class="author-info">William Jamhoury - 4 min read</div>
+            <p>Here's the uncomfortable truth about creativity that most people would rather ignore: we've been lied to about what it takes to make...</p>
+            <p><em>Full content to be added - copy from your original Wix blog post</em></p>
+        </div>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.add('hidden'));
+            
+            // Show selected page
+            document.getElementById(pageId).classList.remove('hidden');
+            
+            // Update active nav link
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function openModal(postId) {
+            document.getElementById(postId).style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeModal() {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => modal.style.display = 'none');
+            document.body.style.overflow = 'auto'; // Re-enable scrolling
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
